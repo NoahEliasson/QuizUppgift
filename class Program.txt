@@ -1,0 +1,102 @@
+class Program
+{
+    static void Main()
+    {
+        int nrPoints = 0;
+        List<Question> questions = new List<Question>();
+        questions.Add(new Freetext("Vad heter huvudstade i osterike", 5, "wien"));
+        questions.Add(new Freetext("Vem regisserade filmen Blue Velvet", 5, "david lynch"));
+        questions.Add(new MultipleChoices("Hur många Star Wars filmer finns det: \n1) 5\n2) 9\n3) 3", 5, 3));
+        questions.Add(new MultipleChoices("Vad heter Danmarks huvudstad:\n1) Stockholm\n2) Oslo\n3) Helsingfors\n4) Köpenhamn\n5) Wien", 5, 4));
+        foreach(Question q in questions)
+        {
+            Console.WriteLine(q);
+            string answer = Console.ReadLine();
+            if(q.CheckAnswer(answer) == true)
+            {
+                nrPoints+=q.Points;
+                Console.WriteLine($"Correct! You earned {q.Points} points. Total points now: {nrPoints}");
+            }
+            else
+            {
+                Console.WriteLine("Incorrect!");
+            }
+        }
+        Console.WriteLine("Total points" + nrPoints);
+        
+    }
+}
+
+// En basklass. Denna ska vi inte skapa objekt av (därav abstract, ett nytt ord vi lärde oss nu).
+// Den berättar hur en fråga är uppbyggd av formuleringar och poäng.
+// En fråga kan också skrivas ut, det löser vi med att överskugga/overridea
+// ToString och anropa Console.WriteLine med objektet som inparameter.
+// Vi har också en CheckAnswer()-metod som vi använder när vi loopar igenom listan
+// med frågor för att kontrollera om användaren svarar rätt.
+abstract class Question
+{
+    public string Formulation{get;set;} // själva formuleringen av frågan "vad heter huvudstaden i wien"
+    public int Points{get;set;} // antal poäng som man får av frågan
+    // Observera att här i finns INTE rätt svar, då denna är en abstrakt klass som vi INTE ska skapa objekt av.
+    // vi vet ju inte vilken typ av svar (fritext, flerval, ...) som väntas.
+
+    // Konstruktor
+    public Question(string formulation, int points)
+    {
+        Formulation = formulation;
+        Points = points;
+    }
+
+    // För utskrift
+    public override string ToString()
+    {
+        return $"Points: {Points}. Question: {Formulation}";
+    }
+
+    // Kontrollera svaret... denna anropas aldrig utan ligger bara som "modell" för ärvda klasser.
+    public virtual bool CheckAnswer(string userAnswer)
+    {
+        return true;
+    }
+}
+
+// Klass för fritextfrågor
+class Freetext : Question
+{
+    public string CorrectAnswer{set;get;} // Svaret som en string, i fritext alltså!
+
+    public Freetext(string formulation, int points, string correctAnswer) : base(formulation, points)
+    {
+        CorrectAnswer = correctAnswer;
+    }
+
+    // Kontrollera svaret
+    public override bool CheckAnswer(string userAnswer)
+    {
+        if(userAnswer == CorrectAnswer)
+            return true;
+        else
+            return false;
+    }
+}
+
+// Klass för flervalsalternativ där rätt svar ska vara ett heltal.
+class MultipleChoices : Question
+{
+    public int CorrectAnswer{set;get;} // Svaret som ett heltal
+
+    public MultipleChoices(string formulation, int points, int correctAnswer) : base(formulation, points)
+    {
+        CorrectAnswer = correctAnswer;
+    }
+
+    // Kontrollera svaret
+    public override bool CheckAnswer(string userAnswer)
+    {
+        int iuserAnswer = int.Parse(userAnswer);
+        if(iuserAnswer == CorrectAnswer)
+            return true;
+        else
+            return false;
+    }
+}

@@ -1,0 +1,41 @@
+[
+    {
+        "Type": "FreeText",
+        "Formulation": "Vad heter huvudstaden i Kina?",
+        "Points": 3,
+        "CorrectAnswer": "peking"
+    },
+    {
+        "Type": "MultipleChoices",
+        "Formulation": "Vilket djur sägs vara människans bästa vän?",
+        "Points": 1,
+        "CorrectAnswer": "1",
+        "Choices": ["1) Hund", "2) Katt", "3) Fisk"]
+    },
+    {
+        "Type": "FreeText",
+        "Formulation": "Vad kallas en namngiven behållare för att lagra data i programmering?",
+        "Points": 2,
+        "CorrectAnswer": "variabel"
+    },
+    {
+        "Type": "FreeText",
+        "Formulation": "Vad kallas en upprepning/iteration av ett kodblock i programmering?",
+        "Points": 2,
+        "CorrectAnswer": "loop"
+    },
+    {
+        "Type": "MultipleChoices",
+        "Formulation": "Vad är ett exempel på en datatyp i programmering",
+        "Points": 2,
+        "CorrectAnswer": "3",
+        "Choices": ["1) Args", "2) From", "3) Int"]
+    },
+    {
+        "Type": "OneToTen",
+        "Formulation": "Hur många fingrar har en människa vanligtvis?",
+        "OneToTenAnswer": "Svara med 1-10",
+        "Points": 1,
+        "CorrectAnswer": "10"
+    }
+]
