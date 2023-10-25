@@ -7,6 +7,7 @@ internal class Program // knasigt vid multiplechoice där frågan kommer längst
 {
     static void Main(string[] args)
     {
+        System.Console.WriteLine("Gittest");
         int myPoints = 0;
         string json = File.ReadAllText("Questions.json"); 
         List<QuestionModel> questionModels = JsonSerializer.Deserialize<List<QuestionModel>>(json); 
